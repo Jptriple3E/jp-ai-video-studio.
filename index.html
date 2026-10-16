@@ -1,0 +1,1365 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#090914">
+<meta name="description" content="JP AI Video Studio — plan cinematic AI videos, long-form stories, narrated films and creative video projects.">
+<title>JP AI Video Studio | JP Digital AI</title>
+
+<style>
+:root {
+  --bg:#090914;
+  --panel:#111122;
+  --panel2:#17172c;
+  --border:#292943;
+  --text:#f6f5ff;
+  --muted:#a2a1bb;
+  --purple:#9270ff;
+  --pink:#ec70d5;
+  --green:#65e6b3;
+  --radius:18px;
+}
+
+* {
+  box-sizing:border-box;
+  margin:0;
+  padding:0;
+}
+
+body {
+  font-family:Arial,Helvetica,sans-serif;
+  background:var(--bg);
+  color:var(--text);
+  min-height:100vh;
+  line-height:1.5;
+}
+
+button,input,select,textarea {
+  font:inherit;
+}
+
+button {
+  cursor:pointer;
+}
+
+.app {
+  display:flex;
+  min-height:100vh;
+}
+
+.sidebar {
+  width:245px;
+  flex-shrink:0;
+  background:#0d0d1b;
+  border-right:1px solid var(--border);
+  padding:25px 16px;
+}
+
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:0 8px 28px;
+}
+
+.logo {
+  width:43px;
+  height:43px;
+  display:grid;
+  place-items:center;
+  border-radius:14px;
+  font-size:22px;
+  font-weight:bold;
+  background:linear-gradient(135deg,#8b5cf6,#e879d9);
+  color:white;
+}
+
+.brand h2 {
+  font-size:16px;
+  line-height:1.3;
+}
+
+.brand p {
+  color:var(--muted);
+  font-size:11px;
+  margin-top:3px;
+}
+
+.nav-label {
+  color:#777790;
+  font-size:10px;
+  font-weight:bold;
+  letter-spacing:1.5px;
+  padding:18px 10px 9px;
+}
+
+.nav-button {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  width:100%;
+  padding:12px;
+  border:1px solid transparent;
+  border-radius:11px;
+  color:#b6b5cb;
+  background:transparent;
+  text-align:left;
+  margin:3px 0;
+  font-size:13px;
+}
+
+.nav-button:hover,
+.nav-button.active {
+  color:white;
+  background:#201b39;
+  border-color:#3d315f;
+}
+
+.nav-icon {
+  width:22px;
+  text-align:center;
+  font-size:17px;
+}
+
+.sidebar-note {
+  margin-top:35px;
+  padding:15px;
+  border:1px solid var(--border);
+  border-radius:14px;
+  background:linear-gradient(145deg,#17152d,#111122);
+}
+
+.sidebar-note strong {
+  font-size:13px;
+}
+
+.sidebar-note p {
+  color:var(--muted);
+  font-size:11px;
+  margin:8px 0 12px;
+}
+
+.main {
+  flex:1;
+  min-width:0;
+}
+
+.topbar {
+  height:75px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:0 30px;
+  border-bottom:1px solid var(--border);
+  background:rgba(9,9,20,.9);
+}
+
+.topbar-title {
+  font-size:14px;
+  font-weight:bold;
+}
+
+.status {
+  display:flex;
+  align-items:center;
+  gap:8px;
+  font-size:11px;
+  color:var(--muted);
+}
+
+.status-dot {
+  width:8px;
+  height:8px;
+  background:#e5b45b;
+  border-radius:50%;
+}
+
+.content {
+  padding:30px;
+  max-width:1400px;
+  margin:auto;
+}
+
+.hero {
+  position:relative;
+  overflow:hidden;
+  padding:35px;
+  border:1px solid #383052;
+  border-radius:24px;
+  background:
+    radial-gradient(ellipse at 85% 10%,rgba(150,93,255,.25),transparent 45%),
+    radial-gradient(ellipse at 15% 100%,rgba(226,92,206,.12),transparent 45%),
+    #121224;
+}
+
+.eyebrow {
+  display:inline-flex;
+  align-items:center;
+  gap:7px;
+  color:#c6b3ff;
+  background:#27203f;
+  border:1px solid #433365;
+  border-radius:50px;
+  padding:6px 11px;
+  font-size:10px;
+  letter-spacing:.8px;
+  font-weight:bold;
+}
+
+.hero h1 {
+  font-size:clamp(29px,4vw,45px);
+  line-height:1.12;
+  max-width:680px;
+  margin:20px 0 14px;
+  letter-spacing:-1.2px;
+}
+
+.gradient-text {
+  background:linear-gradient(90deg,#a991ff,#ef8ae0);
+  -webkit-background-clip:text;
+  background-clip:text;
+  color:transparent;
+}
+
+.hero p {
+  color:#b6b4d0;
+  font-size:14px;
+  max-width:650px;
+  line-height:1.8;
+}
+
+.hero-actions {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  margin-top:24px;
+}
+
+.btn {
+  border:1px solid var(--border);
+  padding:11px 16px;
+  border-radius:10px;
+  background:#1a1a30;
+  color:white;
+  font-size:12px;
+  font-weight:bold;
+}
+
+.btn:hover {
+  filter:brightness(1.15);
+}
+
+.btn-primary {
+  border:0;
+  background:linear-gradient(110deg,#7957ef,#b45ee8);
+  color:white;
+}
+
+.btn-small {
+  padding:8px 12px;
+  font-size:11px;
+}
+
+.section-head {
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  margin:30px 0 16px;
+}
+
+.section-head h2 {
+  font-size:18px;
+}
+
+.section-head p {
+  color:var(--muted);
+  font-size:12px;
+  margin-top:4px;
+}
+
+.grid {
+  display:grid;
+  grid-template-columns:repeat(3,minmax(0,1fr));
+  gap:15px;
+}
+
+.card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+  min-width:0;
+}
+
+.feature-icon {
+  width:44px;
+  height:44px;
+  display:grid;
+  place-items:center;
+  border-radius:13px;
+  background:#24203d;
+  font-size:21px;
+  margin-bottom:17px;
+}
+
+.card h3 {
+  font-size:15px;
+  margin-bottom:8px;
+}
+
+.card p {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.7;
+}
+
+.card .btn {
+  margin-top:17px;
+}
+
+.badge {
+  display:inline-block;
+  font-size:10px;
+  color:#c6b3ff;
+  background:#27203f;
+  padding:4px 8px;
+  border-radius:50px;
+  margin-bottom:12px;
+}
+
+.badge-green {
+  color:var(--green);
+  background:#133027;
+}
+
+.workspace {
+  display:grid;
+  grid-template-columns:minmax(0,1.35fr) minmax(260px,.65fr);
+  gap:18px;
+  margin-top:28px;
+  align-items:start;
+}
+
+.form-card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:23px;
+}
+
+.form-card h2 {
+  font-size:19px;
+  margin-bottom:7px;
+}
+
+.form-description {
+  font-size:12px;
+  color:var(--muted);
+  margin-bottom:22px;
+}
+
+.field {
+  margin-bottom:17px;
+}
+
+.field label {
+  display:block;
+  font-size:12px;
+  font-weight:bold;
+  margin-bottom:8px;
+}
+
+.field small {
+  display:block;
+  color:var(--muted);
+  font-size:10px;
+  margin-top:6px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width:100%;
+  padding:12px;
+  border:1px solid #34344e;
+  background:#0c0c19;
+  color:white;
+  border-radius:10px;
+  outline:none;
+  font-size:12px;
+}
+
+.field textarea {
+  min-height:120px;
+  resize:vertical;
+  line-height:1.7;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color:var(--purple);
+}
+
+.field select option {
+  background:#111122;
+}
+
+.two-col {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+
+.checkbox-row {
+  display:flex;
+  flex-wrap:wrap;
+  gap:14px;
+  margin:8px 0 20px;
+}
+
+.checkbox-row label {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  color:#c2c0d8;
+  font-size:11px;
+}
+
+.checkbox-row input {
+  accent-color:var(--purple);
+}
+
+.full-width {
+  width:100%;
+}
+
+.preview-card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:20px;
+}
+
+.preview-box {
+  display:grid;
+  place-items:center;
+  min-height:190px;
+  text-align:center;
+  border:1px dashed #484065;
+  border-radius:14px;
+  background:
+    radial-gradient(ellipse at 50% 40%,rgba(142,96,255,.16),transparent 65%),
+    #0c0c19;
+  padding:20px;
+}
+
+.preview-box .big-icon {
+  font-size:39px;
+  margin-bottom:12px;
+}
+
+.preview-box h3 {
+  font-size:14px;
+}
+
+.preview-box p {
+  font-size:11px;
+  color:var(--muted);
+  margin-top:7px;
+}
+
+.info-list {
+  margin-top:18px;
+}
+
+.info-item {
+  display:flex;
+  gap:12px;
+  padding:13px 0;
+  border-bottom:1px solid var(--border);
+}
+
+.info-item:last-child {
+  border-bottom:0;
+}
+
+.info-item strong {
+  font-size:12px;
+  display:block;
+}
+
+.info-item span {
+  font-size:11px;
+  color:var(--muted);
+}
+
+.notice {
+  border:1px solid #57462b;
+  background:#241d14;
+  color:#e9cb94;
+  padding:13px;
+  border-radius:11px;
+  font-size:11px;
+  line-height:1.7;
+  margin-top:18px;
+}
+
+.projects {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:14px;
+}
+
+.project-card {
+  background:var(--panel);
+  border:1px solid var(--border);
+  padding:17px;
+  border-radius:14px;
+  overflow-wrap:anywhere;
+}
+
+.project-card h3 {
+  font-size:14px;
+  margin-bottom:7px;
+}
+
+.project-card p {
+  font-size:11px;
+  color:var(--muted);
+  margin-bottom:10px;
+}
+
+.empty-state {
+  border:1px dashed #383850;
+  border-radius:15px;
+  text-align:center;
+  padding:35px 15px;
+  color:var(--muted);
+  font-size:12px;
+  grid-column:1/-1;
+}
+
+.page {
+  display:none;
+}
+
+.page.active {
+  display:block;
+}
+
+.footer {
+  padding:25px 30px;
+  border-top:1px solid var(--border);
+  color:#777790;
+  font-size:11px;
+  display:flex;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  gap:10px;
+}
+
+.toast {
+  position:fixed;
+  bottom:20px;
+  left:50%;
+  transform:translateX(-50%);
+  background:#24203d;
+  border:1px solid #514477;
+  color:white;
+  border-radius:12px;
+  padding:12px 18px;
+  font-size:12px;
+  z-index:99;
+  display:none;
+  max-width:90%;
+}
+
+.mobile-menu {
+  display:none;
+}
+
+@media(max-width:1000px) {
+  .sidebar {
+    width:210px;
+  }
+
+  .grid {
+    grid-template-columns:repeat(2,minmax(0,1fr));
+  }
+
+  .workspace {
+    grid-template-columns:1fr;
+  }
+}
+
+@media(max-width:700px) {
+  .app {
+    display:block;
+  }
+
+  .sidebar {
+    width:100%;
+    padding:13px;
+    border-right:0;
+    border-bottom:1px solid var(--border);
+  }
+
+  .brand {
+    padding:0 4px 12px;
+  }
+
+  .nav-label,
+  .sidebar-note {
+    display:none;
+  }
+
+  .nav-list {
+    display:flex;
+    gap:6px;
+    overflow-x:auto;
+    padding-bottom:4px;
+  }
+
+  .nav-button {
+    width:auto;
+    white-space:nowrap;
+    flex-shrink:0;
+    padding:9px 11px;
+    margin:0;
+    font-size:11px;
+  }
+
+  .nav-icon {
+    font-size:14px;
+    width:auto;
+  }
+
+  .topbar {
+    height:52px;
+    padding:0 17px;
+  }
+
+  .content {
+    padding:17px;
+  }
+
+  .hero {
+    padding:24px 19px;
+    border-radius:18px;
+  }
+
+  .hero h1 {
+    font-size:32px;
+  }
+
+  .grid {
+    grid-template-columns:1fr;
+  }
+
+  .two-col,
+  .projects {
+    grid-template-columns:1fr;
+  }
+
+  .form-card {
+    padding:17px;
+  }
+
+  .footer {
+    padding:20px 17px;
+  }
+}
+</style>
+</head>
+
+<body>
+<div class="app">
+
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="logo">JP</div>
+      <div>
+        <h2>JP AI Video Studio</h2>
+        <p>by JP Digital AI</p>
+      </div>
+    </div>
+
+    <div class="nav-label">WORKSPACE</div>
+    <nav class="nav-list">
+      <button class="nav-button active" data-page="dashboard">
+        <span class="nav-icon">⌂</span> Dashboard
+      </button>
+      <button class="nav-button" data-page="create">
+        <span class="nav-icon">✦</span> Create a Video
+      </button>
+      <button class="nav-button" data-page="projects">
+        <span class="nav-icon">▤</span> My Projects
+      </button>
+      <button class="nav-button" data-page="movie">
+        <span class="nav-icon">▣</span> AI Movie Studio
+      </button>
+      <button class="nav-button" data-page="voice">
+        <span class="nav-icon">♫</span> Voice Studio
+      </button>
+      <button class="nav-button" data-page="media">
+        <span class="nav-icon">▧</span> Media Library
+      </button>
+    </nav>
+
+    <div class="sidebar-note">
+      <strong>Bring your story to life</strong>
+      <p>Plan videos, build stories and organize your creative projects in one workspace.</p>
+      <button class="btn btn-small" onclick="showPage('create')">Start a project →</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-title" id="topTitle">Creative Dashboard</div>
+      <div class="status">
+        <span class="status-dot"></span>
+        Studio interface preview
+      </div>
+    </header>
+
+    <div class="content">
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="dashboard">
+        <div class="hero">
+          <span class="eyebrow">✦ YOUR CREATIVE WORKSPACE</span>
+          <h1>Turn your ideas into <span class="gradient-text">cinematic stories.</span></h1>
+          <p>
+            Plan AI-assisted videos, original stories, narrated films and
+            long-form content. Build your project from a simple idea and
+            organize your creative workflow in one place.
+          </p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="showPage('create')">
+              ✦ Create a Video
+            </button>
+            <button class="btn" onclick="showPage('movie')">
+              Explore Movie Studio →
+            </button>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <h2>Your creative tools</h2>
+            <p>Choose where you want to begin.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card">
+            <div class="feature-icon">🎬</div>
+            <span class="badge">VIDEO WORKSPACE</span>
+            <h3>AI Video Creator</h3>
+            <p>Describe your video idea, choose a style and plan the structure of your next project.</p>
+            <button class="btn btn-primary" onclick="showPage('create')">Create a video →</button>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon">🎥</div>
+            <span class="badge">LONG-FORM CONTENT</span>
+            <h3>AI Movie Studio</h3>
+            <p>Organize scenes, characters and story chapters for longer films and storytelling videos.</p>
+            <button class="btn" onclick="showPage('movie')">Open Movie Studio →</button>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon">🎙️</div>
+            <span class="badge">AUDIO WORKSPACE</span>
+            <h3>Voice Studio</h3>
+            <p>Prepare narration scripts and organize voice-over requirements for your videos.</p>
+            <button class="btn" onclick="showPage('voice')">Open Voice Studio →</button>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon">📁</div>
+            <span class="badge badge-green">PROJECT ORGANIZATION</span>
+            <h3>My Projects</h3>
+            <p>View and manage the project plans you save in this browser.</p>
+            <button class="btn" onclick="showPage('projects')">View projects →</button>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon">🖼️</div>
+            <span class="badge">ASSET WORKSPACE</span>
+            <h3>Media Library</h3>
+            <p>Prepare a list of images, audio files and other assets you want to use in future projects.</p>
+            <button class="btn" onclick="showPage('media')">Open Media Library →</button>
+          </div>
+
+          <div class="card">
+            <div class="feature-icon">✨</div>
+            <span class="badge">COMING IN THE BUILD</span>
+            <h3>Cinematic Generation</h3>
+            <p>The planned direction is to support moving scenes and more advanced video production as the required generation engine is built.</p>
+            <button class="btn" onclick="showPage('create')">Plan a project →</button>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <h2>Recent projects</h2>
+            <p>Your saved project plans appear here.</p>
+          </div>
+          <button class="btn btn-small" onclick="showPage('projects')">View all</button>
+        </div>
+
+        <div class="projects" id="recentProjects"></div>
+      </section>
+
+      <!-- CREATE VIDEO -->
+      <section class="page" id="create">
+        <div class="section-head">
+          <div>
+            <h2>Create a Video</h2>
+            <p>Describe your idea and prepare your project plan.</p>
+          </div>
+        </div>
+
+        <div class="workspace">
+          <div class="form-card">
+            <h2>Start with your idea</h2>
+            <p class="form-description">Provide the details for your planned video.</p>
+
+            <form id="videoForm">
+              <div class="field">
+                <label for="videoTitle">Project name</label>
+                <input id="videoTitle" type="text" maxlength="100" placeholder="e.g. The Lost Kingdom" required>
+              </div>
+
+              <div class="field">
+                <label for="videoPrompt">Describe your video</label>
+                <textarea id="videoPrompt" maxlength="5000" placeholder="Describe the story, characters, setting, actions, mood and what happens in the video..." required></textarea>
+                <small>More detail helps you prepare a clearer production plan.</small>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label for="videoType">Video category</label>
+                  <select id="videoType">
+                    <option>Storytelling</option>
+                    <option>Cinematic film</option>
+                    <option>Romance</option>
+                    <option>Horror</option>
+                    <option>Documentary</option>
+                    <option>Business video</option>
+                    <option>Educational</option>
+                    <option>Social media</option>
+                    <option>Animation</option>
+                    <option>Music video</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="duration">Target duration</label>
+                  <select id="duration">
+                    <option value="1">1 minute</option>
+                    <option value="5">5 minutes</option>
+                    <option value="10">10 minutes</option>
+                    <option value="30">30 minutes</option>
+                    <option value="60">60 minutes</option>
+                    <option value="90">90 minutes</option>
+                    <option value="120">120 minutes (2 hours)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label for="visualStyle">Visual style</label>
+                  <select id="visualStyle">
+                    <option>Cinematic realism</option>
+                    <option>3D animation</option>
+                    <option>Anime</option>
+                    <option>African folklore</option>
+                    <option>Fantasy</option>
+                    <option>Documentary realism</option>
+                    <option>Cartoon</option>
+                    <option>Film noir</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="aspect">Video format</label>
+                  <select id="aspect">
+                    <option value="16:9">Landscape (16:9)</option>
+                    <option value="9:16">Vertical (9:16)</option>
+                    <option value="1:1">Square (1:1)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="two-col">
+                <div class="field">
+                  <label for="voice">Narration preference</label>
+                  <select id="voice">
+                    <option>No narration specified</option>
+                    <option>Male voice</option>
+                    <option>Female voice</option>
+                    <option>Character dialogue</option>
+                    <option>Multiple characters</option>
+                  </select>
+                </div>
+
+                <div class="field">
+                  <label for="quality">Planned quality</label>
+                  <select id="quality">
+                    <option>1080p Full HD</option>
+                    <option>720p HD</option>
+                    <option>4K Ultra HD</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="checkbox-row">
+                <label><input type="checkbox" id="subtitles" checked> Subtitles planned</label>
+                <label><input type="checkbox" id="music" checked> Background music planned</label>
+                <label><input type="checkbox" id="consistent"> Consistent characters</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary full-width">
+                Save Video Project Plan →
+              </button>
+            </form>
+          </div>
+
+          <div class="preview-card">
+            <h3 style="margin-bottom:15px;font-size:16px;">Production overview</h3>
+            <div class="preview-box">
+              <div>
+                <div class="big-icon">🎞️</div>
+                <h3>Your video starts here</h3>
+                <p>Your project plan will appear in My Projects after you save it.</p>
+              </div>
+            </div>
+
+            <div class="info-list">
+              <div class="info-item">
+                <div>📝</div>
+                <div><strong>Story planning</strong><span>Define your idea and creative direction.</span></div>
+              </div>
+              <div class="info-item">
+                <div>🎬</div>
+                <div><strong>Scene planning</strong><span>Prepare the scenes needed for your story.</span></div>
+              </div>
+              <div class="info-item">
+                <div>🎙️</div>
+                <div><strong>Audio planning</strong><span>Specify narration, dialogue and music.</span></div>
+              </div>
+              <div class="info-item">
+                <div>📤</div>
+                <div><strong>Video export</strong><span>Requires the generation and rendering system to be connected.</span></div>
+              </div>
+            </div>
+
+            <div class="notice">
+              Important: This first version saves project plans only. AI video generation, voice production and downloadable MP4 exports are not connected yet.
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section class="page" id="projects">
+        <div class="section-head">
+          <div>
+            <h2>My Projects</h2>
+            <p>Review project plans saved in this browser.</p>
+          </div>
+          <button class="btn btn-primary" onclick="showPage('create')">+ New project</button>
+        </div>
+        <div class="projects" id="allProjects"></div>
+      </section>
+
+      <!-- MOVIE STUDIO -->
+      <section class="page" id="movie">
+        <div class="hero">
+          <span class="eyebrow">LONG-FORM STORYTELLING</span>
+          <h1>Build your next <span class="gradient-text">cinematic story.</span></h1>
+          <p>Prepare story outlines, characters, scenes and chapters for ambitious video projects, including stories targeting up to two hours.</p>
+          <div class="hero-actions">
+            <button class="btn btn-primary" onclick="showPage('create')">Start a film project →</button>
+          </div>
+        </div>
+
+        <div class="section-head">
+          <div>
+            <h2>Movie production workflow</h2>
+            <p>Organize the project before generation and rendering are connected.</p>
+          </div>
+        </div>
+
+        <div class="grid">
+          <div class="card"><div class="feature-icon">📖</div><h3>1. Story and script</h3><p>Develop the premise, plot, dialogue and ending.</p></div>
+          <div class="card"><div class="feature-icon">🧑‍🎤</div><h3>2. Characters</h3><p>Define character appearances, personalities and continuity requirements.</p></div>
+          <div class="card"><div class="feature-icon">🎬</div><h3>3. Scenes and chapters</h3><p>Break the story into manageable scenes and production chapters.</p></div>
+          <div class="card"><div class="feature-icon">🎙️</div><h3>4. Voice and audio</h3><p>Plan dialogue, narration, sound effects and music.</p></div>
+          <div class="card"><div class="feature-icon">🖼️</div><h3>5. Visual production</h3><p>Prepare the visual assets and motion-generation workflow.</p></div>
+          <div class="card"><div class="feature-icon">📽️</div><h3>6. Final assembly</h3><p>Plan how scenes, audio and transitions will be assembled into a video.</p></div>
+        </div>
+
+        <div class="notice">The Movie Studio is currently a planning interface. It does not yet generate cinematic footage or render a two-hour movie.</div>
+      </section>
+
+      <!-- VOICE STUDIO -->
+      <section class="page" id="voice">
+        <div class="section-head">
+          <div>
+            <h2>Voice Studio</h2>
+            <p>Prepare narration and dialogue for future video projects.</p>
+          </div>
+        </div>
+
+        <div class="workspace">
+          <div class="form-card">
+            <h2>Narration script</h2>
+            <p class="form-description">Write or paste the text you want to prepare for voice production.</p>
+
+            <div class="field">
+              <label for="scriptTitle">Script name</label>
+              <input id="scriptTitle" placeholder="e.g. Chapter One Narration">
+            </div>
+
+            <div class="field">
+              <label for="scriptText">Your script</label>
+              <textarea id="scriptText" maxlength="20000" placeholder="Paste your narration or dialogue here..."></textarea>
+            </div>
+
+            <button class="btn btn-primary full-width" onclick="saveScript()">Save Script on This Device</button>
+            <div class="notice">Voice generation is not connected yet. This tool currently saves your script in this browser.</div>
+          </div>
+
+          <div class="preview-card">
+            <h3 style="margin-bottom:15px;">Voice production checklist</h3>
+            <div class="info-list">
+              <div class="info-item"><div>01</div><div><strong>Prepare the script</strong><span>Review spelling, dialogue and pronunciation.</span></div></div>
+              <div class="info-item"><div>02</div><div><strong>Select a voice</strong><span>Choose the voice style required for your story.</span></div></div>
+              <div class="info-item"><div>03</div><div><strong>Generate audio</strong><span>Requires a compatible voice-generation engine.</span></div></div>
+              <div class="info-item"><div>04</div><div><strong>Sync with video</strong><span>Audio synchronization will be part of the future production workflow.</span></div></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- MEDIA LIBRARY -->
+      <section class="page" id="media">
+        <div class="section-head">
+          <div>
+            <h2>Media Library</h2>
+            <p>Keep a list of assets you intend to use in your projects.</p>
+          </div>
+        </div>
+
+        <div class="form-card" style="max-width:700px;">
+          <h2>Add a media reference</h2>
+          <p class="form-description">Record the name and type of an image, audio file or other asset.</p>
+
+          <div class="field">
+            <label for="assetName">Asset name</label>
+            <input id="assetName" placeholder="e.g. Main character reference image">
+          </div>
+
+          <div class="field">
+            <label for="assetType">Asset type</label>
+            <select id="assetType">
+              <option>Image</option>
+              <option>Audio</option>
+              <option>Video</option>
+              <option>Character reference</option>
+              <option>Script</option>
+              <option>Other</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="assetNotes">Notes</label>
+            <textarea id="assetNotes" placeholder="Describe the asset or where you plan to use it..." style="min-height:80px;"></textarea>
+          </div>
+
+          <button class="btn btn-primary" onclick="saveAsset()">Save Asset Reference</button>
+
+          <div class="section-head"><h2>Saved references</h2></div>
+          <div class="projects" id="assetList"></div>
+        </div>
+      </section>
+
+    </div>
+
+    <footer class="footer">
+      <span>© 2026 JP Digital AI. All rights reserved.</span>
+      <span>JP AI Video Studio · Development Preview</span>
+    </footer>
+  </main>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const STORAGE = {
+  projects: "jpVideoStudioProjects",
+  scripts: "jpVideoStudioScripts",
+  assets: "jpVideoStudioAssets"
+};
+
+function readData(key) {
+  try {
+    return JSON.parse(localStorage.getItem(key) || "[]");
+  } catch (error) {
+    return [];
+  }
+}
+
+function writeData(key, value) {
+  localStorage.setItem(key, JSON.stringify(value));
+}
+
+function showToast(message) {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+  clearTimeout(window.toastTimer);
+  window.toastTimer = setTimeout(() => {
+    toast.style.display = "none";
+  }, 3000);
+}
+
+const pageTitles = {
+  dashboard: "Creative Dashboard",
+  create: "Create a Video",
+  projects: "My Projects",
+  movie: "AI Movie Studio",
+  voice: "Voice Studio",
+  media: "Media Library"
+};
+
+function showPage(page) {
+  document.querySelectorAll(".page").forEach(section => {
+    section.classList.remove("active");
+  });
+
+  const selected = document.getElementById(page);
+  if (!selected) return;
+
+  selected.classList.add("active");
+
+  document.querySelectorAll(".nav-button").forEach(button => {
+    button.classList.toggle("active", button.dataset.page === page);
+  });
+
+  document.getElementById("topTitle").textContent = pageTitles[page] || "JP AI Video Studio";
+
+  if (page === "projects" || page === "dashboard") renderProjects();
+  if (page === "media") renderAssets();
+
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
+document.querySelectorAll(".nav-button").forEach(button => {
+  button.addEventListener("click", () => showPage(button.dataset.page));
+});
+
+document.getElementById("videoForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const title = document.getElementById("videoTitle").value.trim();
+  const prompt = document.getElementById("videoPrompt").value.trim();
+
+  if (!title || !prompt) {
+    showToast("Please enter a project name and video description.");
+    return;
+  }
+
+  const project = {
+    id: Date.now(),
+    title,
+    prompt,
+    category: document.getElementById("videoType").value,
+    duration: document.getElementById("duration").value,
+    style: document.getElementById("visualStyle").value,
+    aspect: document.getElementById("aspect").value,
+    voice: document.getElementById("voice").value,
+    quality: document.getElementById("quality").value,
+    subtitles: document.getElementById("subtitles").checked,
+    music: document.getElementById("music").checked,
+    consistent: document.getElementById("consistent").checked,
+    created: new Date().toLocaleString(),
+    status: "Plan saved"
+  };
+
+  const projects = readData(STORAGE.projects);
+  projects.unshift(project);
+
+  try {
+    writeData(STORAGE.projects, projects);
+  } catch (error) {
+    showToast("Could not save. Your browser storage may be full.");
+    return;
+  }
+
+  this.reset();
+  renderProjects();
+  showToast("Project plan saved on this device.");
+  showPage("projects");
+});
+
+function escapeHTML(value) {
+  return String(value ?? "").replace(/[&<>"']/g, character => ({
+    "&":"&amp;",
+    "<":"&lt;",
+    ">":"&gt;",
+    '"':"&quot;",
+    "'":"&#039;"
+  })[character]);
+}
+
+function projectCard(project) {
+  return `
+    <article class="project-card">
+      <span class="badge">${escapeHTML(project.category)}</span>
+      <h3>${escapeHTML(project.title)}</h3>
+      <p>${escapeHTML(project.prompt.slice(0,180))}${project.prompt.length > 180 ? "…" : ""}</p>
+      <p>Duration: ${escapeHTML(project.duration)} minute(s) · Format: ${escapeHTML(project.aspect)}</p>
+      <p>Style: ${escapeHTML(project.style)}</p>
+      <p>Created: ${escapeHTML(project.created)}</p>
+      <button class="btn btn-small" onclick="viewProject(${Number(project.id)})">View details</button>
+      <button class="btn btn-small" onclick="deleteProject(${Number(project.id)})">Delete</button>
+    </article>
+  `;
+}
+
+function renderProjects() {
+  const projects = readData(STORAGE.projects);
+  const all = document.getElementById("allProjects");
+  const recent = document.getElementById("recentProjects");
+
+  const empty = `<div class="empty-state">🎬<br><br>No projects saved yet.<br>Start by creating your first video project plan.</div>`;
+
+  all.innerHTML = projects.length ? projects.map(projectCard).join("") : empty;
+  recent.innerHTML = projects.length ? projects.slice(0,2).map(projectCard).join("") : empty;
+}
+
+function viewProject(id) {
+  const project = readData(STORAGE.projects).find(item => item.id === id);
+  if (!project) return;
+
+  alert(
+    "PROJECT: " + project.title +
+    "\n\nDESCRIPTION:\n" + project.prompt +
+    "\n\nCATEGORY: " + project.category +
+    "\nDURATION: " + project.duration + " minute(s)" +
+    "\nVISUAL STYLE: " + project.style +
+    "\nFORMAT: " + project.aspect +
+    "\nVOICE: " + project.voice +
+    "\nQUALITY: " + project.quality +
+    "\n\nThis is a saved project plan. Video generation is not connected yet."
+  );
+}
+
+function deleteProject(id) {
+  if (!confirm("Delete this saved project plan?")) return;
+
+  const projects = readData(STORAGE.projects).filter(item => item.id !== id);
+  writeData(STORAGE.projects, projects);
+  renderProjects();
+  showToast("Project plan deleted.");
+}
+
+function saveScript() {
+  const title = document.getElementById("scriptTitle").value.trim();
+  const content = document.getElementById("scriptText").value.trim();
+
+  if (!title || !content) {
+    showToast("Enter a script name and some text first.");
+    return;
+  }
+
+  const scripts = readData(STORAGE.scripts);
+  scripts.unshift({
+    id:Date.now(),
+    title,
+    content,
+    created:new Date().toLocaleString()
+  });
+
+  try {
+    writeData(STORAGE.scripts, scripts);
+    document.getElementById("scriptTitle").value = "";
+    document.getElementById("scriptText").value = "";
+    showToast("Script saved on this device.");
+  } catch (error) {
+    showToast("Could not save the script. Browser storage may be full.");
+  }
+}
+
+function saveAsset() {
+  const name = document.getElementById("assetName").value.trim();
+  const type = document.getElementById("assetType").value;
+  const notes = document.getElementById("assetNotes").value.trim();
+
+  if (!name) {
+    showToast("Please enter an asset name.");
+    return;
+  }
+
+  const assets = readData(STORAGE.assets);
+  assets.unshift({
+    id:Date.now(),
+    name,
+    type,
+    notes,
+    created:new Date().toLocaleString()
+  });
+
+  try {
+    writeData(STORAGE.assets, assets);
+    document.getElementById("assetName").value = "";
+    document.getElementById("assetNotes").value = "";
+    renderAssets();
+    showToast("Asset reference saved.");
+  } catch (error) {
+    showToast("Could not save the asset reference.");
+  }
+}
+
+function renderAssets() {
+  const assets = readData(STORAGE.assets);
+  const list = document.getElementById("assetList");
+
+  if (!assets.length) {
+    list.innerHTML = `<div class="empty-state">🖼️<br><br>No asset references saved yet.</div>`;
+    return;
+  }
+
+  list.innerHTML = assets.map(asset => `
+    <article class="project-card">
+      <span class="badge">${escapeHTML(asset.type)}</span>
+      <h3>${escapeHTML(asset.name)}</h3>
+      <p>${escapeHTML(asset.notes || "No notes added.")}</p>
+      <p>${escapeHTML(asset.created)}</p>
+      <button class="btn btn-small" onclick="deleteAsset(${Number(asset.id)})">Delete</button>
+    </article>
+  `).join("");
+}
+
+function deleteAsset(id) {
+  if (!confirm("Delete this asset reference?")) return;
+  writeData(STORAGE.assets, readData(STORAGE.assets).filter(asset => asset.id !== id));
+  renderAssets();
+  showToast("Asset reference deleted.");
+}
+
+renderProjects();
+renderAssets();
+</script>
+</body>
+  </html>
